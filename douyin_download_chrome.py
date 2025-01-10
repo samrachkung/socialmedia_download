@@ -1,23 +1,35 @@
 import os
 import re
 import time
-import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from colorama import Fore, init
 from rich.console import Console
-
+import requests
 # Initialize colorama and rich
 init(autoreset=True)
 console = Console()
 
 class DownDouyin:
     def __init__(self):
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        }
         self.sec_uid = None
-        self.nickname = ''
         self.save_dir = './videos'
+        self.driver = self._init_driver()
+
+    def _init_driver(self):
+        # Set up Selenium WebDriver
+        options = Options()
+        options.add_argument('--headless')  # Run in headless mode
+        options.add_argument('--disable-gpu')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--log-level=3')
+        driver_path = "path_to_chromedriver"  # Update this with the path to chromedriver
+
+        return webdriver.Chrome(service=Service(driver_path), options=options)
 
     def set_parameters(self, uid, save_dir, count, mode):
         if not uid:
@@ -48,21 +60,18 @@ class DownDouyin:
         console.print(f"[cyan]Fetching videos from URL: {user_url}[/cyan]")
 
         try:
-            response = requests.get(user_url, headers=self.headers)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
+            self.driver.get(user_url)
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "script"))
+            )
 
-            # Extract JSON data embedded in the webpage
-            script_tag = soup.find('script', id='RENDER_DATA')
-            if not script_tag:
-                console.print("[red][Error][/red] Failed to find video data on the page.")
-                return
+            # Extract JSON data from the page
+            script_tag = self.driver.find_element(By.XPATH, "//script[@id='RENDER_DATA']")
+            raw_data = script_tag.get_attribute("innerHTML")
+            json_data = requests.utils.unquote(raw_data)
+            video_data = eval(json_data)  # Convert raw JSON data to dictionary
 
-            # Decode and load JSON from script tag
-            raw_data = script_tag.string
-            data = requests.utils.unquote(raw_data)
-            json_data = eval(data)  # Convert raw data to dictionary
-            videos = self._extract_videos(json_data)
+            videos = self._extract_videos(video_data)
 
             if not videos:
                 console.print("[yellow]No videos found.[/yellow]")
@@ -74,10 +83,10 @@ class DownDouyin:
 
             self._download_videos(videos, user_dir)
 
-        except requests.RequestException as e:
-            console.print(f"[red][Error][/red] Failed to fetch user page: {e}")
         except Exception as e:
-            console.print(f"[red][Error][/red] Unexpected error: {e}")
+            console.print(f"[red][Error][/red] Failed to fetch user page: {e}")
+        finally:
+            self.driver.quit()
 
     def _extract_videos(self, json_data):
         """Extract video URLs and descriptions from the JSON data."""
@@ -112,7 +121,7 @@ class DownDouyin:
 
     def _download_video(self, url, file_path):
         try:
-            with requests.get(url, headers=self.headers, stream=True) as response:
+            with requests.get(url, stream=True) as response:
                 response.raise_for_status()
                 with open(file_path, 'wb') as file:
                     for chunk in response.iter_content(chunk_size=1024):
