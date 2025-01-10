@@ -5,7 +5,7 @@
 3.double click on Run_tool_down_tiktok for tiktok download 
 4.double click on Run_tool_down_tiktok for pinterest download 
 
-## note 
+## Note 
 Enter username for download example : @rach123
 
 ## For your info 
