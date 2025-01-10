@@ -4,7 +4,7 @@ import random
 from random import choice
 import inquirer
 from pystyle import *
-from moviepy.editor import * 
+from moviepy import * 
 import colorama
 from colorama import *
 from rich.traceback import install
