@@ -56,7 +56,7 @@ def download_videos(videos, username):
             video_filepath = f"./tiktok/{username}/{video_id}.mp4"
             caption_filepath = f"./tiktok/{username}/{video_id}.txt"
 
-            # Download video if not already downloaded
+            # Download video if not already downloaded ==> video_id.mp4
             if not os.path.exists(video_filepath):
                 video_bytes = requests.get(download_url, stream=True)
                 total_length = int(video_bytes.headers.get("Content-Length", 0))
@@ -69,7 +69,7 @@ def download_videos(videos, username):
             else:
                 console.log(f"[yellow][File][/yellow] {video_filepath} already exists. Skipping...\n")
 
-            # Save caption
+            # Save caption -> video_id.txt file in the same directory as the video file 
             with open(caption_filepath, 'w', encoding="utf-8") as caption_file:
                 caption_file.write(caption)
                 console.log(f"[cyan][Caption][/cyan] Saved caption to {caption_filepath}.")

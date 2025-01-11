@@ -81,7 +81,7 @@ def download_images_and_captions(image_data, username):
                     img_file.write(image_bytes)
                 console.log(f"[green][File][/green] {image_path} downloaded.")
 
-            # Save the caption
+            # Save the caption to a text file with the same name as the image
             with open(caption_path, "w", encoding="utf-8") as txt_file:
                 txt_file.write(caption)
             console.log(f"[blue][Caption][/blue] {caption_path} saved.")
