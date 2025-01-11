@@ -1,10 +1,9 @@
 ## Quick Start
-    ```
-   1.install python in your pc
-   2.double click on install too wait for it install all success and close it 
-   3.double click on Run_tool_down_tiktok for tiktok download 
-   4.double click on Run_tool_down_tiktok for pinterest download 
-   ```
+
+   1.install python in your pc </br>
+   2.double click on install too wait for it install all success and close it </br>
+   3.double click on Run_tool_down_tiktok for tiktok download </br>
+   4.double click on Run_tool_down_tiktok for pinterest download </br>
 
 
 ## Module
