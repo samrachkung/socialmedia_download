@@ -8,7 +8,7 @@ pip install requests-html
 pip install requests-random-user-agent
 pip install bs4
 pip install selenium
-
+pip install ttkbootstrap
 
 cls
 @echo off

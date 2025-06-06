@@ -4,13 +4,13 @@ import random
 from random import choice
 import inquirer
 from pystyle import *
-from moviepy import *
+from moviepy.editor import * 
 import colorama
 from colorama import *
 from rich.traceback import install
 from rich.console import Console
 from requests_html import HTMLSession
-import requests_random_user_agent
+
 
 
 install()
@@ -268,7 +268,7 @@ while True:
 
                                     # Process files
                                     for file in clip_list:
-                                        output = dir + "/" + file[:-4] + "_speed.mp4"
+                                        output = dir + "/" + file[:-4] + ".mp4"
                                         limit = str(f'{file:60.60}')
                                         # Check if output exists in folder. If exists then skip else process
                                         if os.path.exists(output) == True:
@@ -327,7 +327,7 @@ while True:
 
                                     # Process files
                                     for file in clip_list:
-                                        output = dir + "/" + file[:-4] + "_speed_flip.mp4"
+                                        output = dir + "/" + file[:-4] + ".mp4"
                                         limit = str(f'{file:60.60}')
                                         # Check if output exists in folder. If exists then skip else process
                                         if os.path.exists(output) == True:
@@ -1046,12 +1046,12 @@ while True:
 
 
                      
-         ████████╗ ██╗ ██╗  ██╗████████╗ █████╗  ██╗  ██╗   ██████╗    █████╗   ██╗       ██╗  ███╗  ██╗   ██╗        █████╗    █████╗   ██████╗                                                        
-         ╚══██╔══╝ ██║ ██║ ██╔╝╚══██╔══╝██╔══██╗ ██║ ██╔╝   ██╔══██╗  ██╔══██╗  ██║  ██╗  ██║  ████╗ ██║   ██║       ██╔══██╗  ██╔══██╗  ██╔══██╗                                                                                                                                     
-            ██║    ██║ █████═╝    ██║   ██║  ██║ █████═╝    ██║  ██║  ██║  ██║  ╚██╗████╗██╔╝  ██╔██╗██║   ██║       ██║  ██║  ███████║  ██║  ██║                                                         
-            ██║    ██║ ██╔═██╗    ██║   ██║  ██║ ██╔═██╗    ██║  ██║  ██║  ██║   ████╔═████║   ██║╚████║   ██║       ██║  ██║  ██╔══██║  ██║  ██║                                                         
-            ██║    ██║ ██║ ╚██╗   ██║   ╚█████╔╝ ██║ ╚██╗   ██████╔╝  ╚█████╔╝   ╚██╔╝ ╚██╔╝   ██║ ╚███║   ███████╗  ╚█████╔╝  ██║  ██║  ██████╔╝                                                                                                         
-            ╚═╝    ╚═╝ ╚═╝  ╚═╝   ╚═╝    ╚════╝  ╚═╝  ╚═╝   ╚═════╝    ╚════╝     ╚═╝   ╚═╝    ╚═╝  ╚══╝   ╚══════╝   ╚════╝   ╚═╝  ╚═╝  ╚═════╝                                                                                                                                                                                
+        ██╗  ██╗ ███████╗ ██████╗   ██╗  ██╗  ████████╗ ██╗ ██╗  ██╗████████╗ █████╗  ██╗  ██╗   ██████╗    █████╗   ██╗       ██╗  ███╗  ██╗   ██╗        █████╗    █████╗   ██████╗                                                        
+        ██║ ██╔╝ ██╔════╝ ██╔══██╗  ╚██╗██╔╝  ╚══██╔══╝ ██║ ██║ ██╔╝╚══██╔══╝██╔══██╗ ██║ ██╔╝   ██╔══██╗  ██╔══██╗  ██║  ██╗  ██║  ████╗ ██║   ██║       ██╔══██╗  ██╔══██╗  ██╔══██╗                                                                                                                                     
+        █████═╝  ███████╗ ██████╔╝   ╚███╔╝      ██║    ██║ █████═╝    ██║   ██║  ██║ █████═╝    ██║  ██║  ██║  ██║  ╚██╗████╗██╔╝  ██╔██╗██║   ██║       ██║  ██║  ███████║  ██║  ██║                                                         
+        ██╔═██╗  ╚════██║ ██╔══██╗   ██╔██╗      ██║    ██║ ██╔═██╗    ██║   ██║  ██║ ██╔═██╗    ██║  ██║  ██║  ██║   ████╔═████║   ██║╚████║   ██║       ██║  ██║  ██╔══██║  ██║  ██║                                                         
+        ██║ ╚██╗ ███████║ ██║  ██║  ██╔╝ ██╗     ██║    ██║ ██║ ╚██╗   ██║   ╚█████╔╝ ██║ ╚██╗   ██████╔╝  ╚█████╔╝   ╚██╔╝ ╚██╔╝   ██║ ╚███║   ███████╗  ╚█████╔╝  ██║  ██║  ██████╔╝                                                                                                         
+        ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝  ╚═╝  ╚═╝     ╚═╝    ╚═╝ ╚═╝  ╚═╝   ╚═╝    ╚════╝  ╚═╝  ╚═╝   ╚═════╝    ╚════╝     ╚═╝   ╚═╝    ╚═╝  ╚══╝   ╚══════╝   ╚════╝   ╚═╝  ╚═╝  ╚═════╝                                                                                                                                                                                
                                 Tool By Kungsamrach ==> Facebook : Samrach kung 
 
 
@@ -1234,29 +1234,24 @@ while True:
             txt = f"""{Fore.MAGENTA}
 
 
-          ██╗  ██╗███████╗██████╗  ██╗  ██╗        ██████╗    █████╗   ██╗       ██╗  ███╗  ██╗            ███████╗  ██████╗   ██╗  ████████╗
-          ██║ ██╔╝██╔════╝██╔══██╗ ╚██╗██╔╝        ██╔══██╗  ██╔══██╗  ██║  ██╗  ██║  ████╗ ██║            ██╔════╝  ██╔══██╗  ██║  ╚══██╔══╝
-          █████═╝ ███████╗██████╔╝  ╚███╔╝  █████╗ ██║  ██║  ██║  ██║  ╚██╗████╗██╔╝  ██╔██╗██║   █████╗   █████╗    ██║  ██║  ██║     ██║
-          ██╔═██╗ ╚════██║██╔══██╗  ██╔██╗  ╚════╝ ██║  ██║  ██║  ██║   ████╔═████║   ██║╚████║   ╚════╝   ██╔══╝    ██║  ██║  ██║     ██║
-          ██║ ╚██╗███████║██║  ██║ ██╔╝ ██╗        ██████╔╝  ╚█████╔╝   ╚██╔╝ ╚██╔╝   ██║ ╚███║            ███████╗  ██████╔╝  ██║     ██║
-          ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝        ╚═════╝    ╚════╝     ╚═╝   ╚═╝    ╚═╝  ╚══╝            ╚══════╝  ╚═════╝   ╚═╝     ╚═╝
+          ██╗  ██╗  ███████╗  ██████╗    ██╗  ██╗            ██████╗    █████╗   ██╗       ██╗  ███╗  ██╗            ███████╗  ██████╗   ██╗  ████████╗
+          ██║ ██╔╝  ██╔════╝  ██╔══██╗   ╚██╗██╔╝            ██╔══██╗  ██╔══██╗  ██║  ██╗  ██║  ████╗ ██║            ██╔════╝  ██╔══██╗  ██║  ╚══██╔══╝
+          █████═╝   ███████╗  ██████╔╝    ╚███╔╝    █████╗   ██║  ██║  ██║  ██║  ╚██╗████╗██╔╝  ██╔██╗██║   █████╗   █████╗    ██║  ██║  ██║     ██║
+          ██╔═██╗   ╚════██║  ██╔══██╗    ██╔██╗    ╚════╝   ██║  ██║  ██║  ██║   ████╔═████║   ██║╚████║   ╚════╝   ██╔══╝    ██║  ██║  ██║     ██║
+          ██║ ╚██╗  ███████║  ██║  ██║   ██╔╝ ██╗            ██████╔╝  ╚█████╔╝   ╚██╔╝ ╚██╔╝   ██║ ╚███║            ███████╗  ██████╔╝  ██║     ██║
+          ╚═╝  ╚═╝  ╚══════╝  ╚═╝  ╚═╝   ╚═╝  ╚═╝            ╚═════╝    ╚════╝     ╚═╝   ╚═╝    ╚═╝  ╚══╝            ╚══════╝  ╚═════╝   ╚═╝     ╚═╝
                            Tool By Kungsamrach ==> Facebook : Samrach kung 
                   """
             
             print(Center.XCenter(txt))
             print(f'{Fore.GREEN}')
-            print(Box.DoubleCube("Use arrow key to select the options"))
-            questions = [inquirer.List('list', message=f"{Fore.YELLOW}Select Tools{Fore.WHITE}", choices=[' Edit Video', ' Download Douyin Video', ' Download Tiktok Video', ' Download Kuaishou Video'],),]   
+            
+            questions = [inquirer.List('list', message=f"{Fore.YELLOW}Select Tools{Fore.WHITE}", choices=[' Edit Video'],),]   
             answers = inquirer.prompt(questions)
 
             if answers['list'] == ' Edit Video':
                 editVideo()
-            elif answers['list'] == ' Download Douyin Video':
-                downDouyin()
-            elif answers['list'] == ' Download Tiktok Video':
-                dwonTiktok()
-            elif answers['list'] == ' Download Kuaishou Video':
-                downKuaishou()
+            
     except:
         console.log("[red][Error][/red] Program Interupted!")
         time.sleep(2)

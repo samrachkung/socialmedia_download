@@ -45,7 +45,7 @@ def download_videos(videos, username):
     if not os.path.exists(f"./tiktok/{username}"):
         os.makedirs(f"./tiktok/{username}")
 
-    console.log("[cyan][Status][/cyan] Already downloaded videos will be skipped.\n")
+    console.log("[cyan][Note][/cyan] Already downloaded videos will be skipped.\n")
 
     for video in track(videos, description="Downloading videos..."):
         try:

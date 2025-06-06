@@ -1,2 +1,2 @@
 @echo off
-python tiktok_download.py
+python tiktok_down_video.py
